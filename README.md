@@ -6,7 +6,7 @@ To use this repo, read the background information in the How this works section,
 
 ## How this works
 
-Oauth 2.0 is the industry standard protocol for authorization and single sign-on. If you want your application to allow users to "Connect with Google" in order to log in to your app or to access an api, then you need to understand how Oauth 2.0 (and the OpenID Connect extension) works. 
+Oauth 2.0 is the industry standard protocol for authorization and single sign-on. If you want your application to allow users to "Connect with Google" (for example) in order to log in to your app or to access an api, then you need to understand how Oauth 2.0 (and the OpenID Connect extension) works. 
 
 The good news is that once you understand the basic Oauth 2.0 and OIDC flow, you can use any identity provider to implement authorization and authentication for your application. All identity providers follow the same Oauth 2.0 specification, which means that if you can integrate with one integrate with one identity provider, you know everything you need to integrate with the others.
 
@@ -15,11 +15,11 @@ The good news is that once you understand the basic Oauth 2.0 and OIDC flow, you
 
 | Term | Definition |
 | ---- | ---------- |
-| Resource Owner | The user, the person who owns the identity and data connected to their accounts. |
+| Resource Owner | The user; the person who owns the identity and data connected to their accounts. |
 | Client | The application that wants to access data on behalf of the **Resource Owner**. |
 | Authorization Server | The application where the **Resource Owner** already has an account. |
 | Resource Server | The API that the **Client** wants to use on behalf of the **Resource Owner**. |
-| Redirect URI | The URL that the **Authorization Server** sends the **Resource Owner** back to after they have granted permission to the **Client**. All called the "Callback URL." |
+| Redirect URI | The URL that the **Authorization Server** sends the **Resource Owner** back to after they have granted permission to the **Client**. Also called the "Callback URL." |
 | Response Type | The type of information the **Client** expects back from the **Authorization Server**. |
 | Scopes | The permissions the **Client** wants. |
 | Consent | The message displayed to the **Resource Owner** by the **Authorization Server** asking if the **Client** should be given permission to the **Scopes** listed. |
