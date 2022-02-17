@@ -1,4 +1,4 @@
-# Authenticating with an identity provider
+# Authenticating with single sign-on
 
 This repo contains a reference app that integrates with an Ouath 2.0 identity provider to provide a single sign-on option for the user. 
 
