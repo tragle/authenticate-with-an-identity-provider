@@ -6,14 +6,35 @@ body {
 .container {
   margin: auto;
   width: 30%;
+  min-height: 150pt;
   padding: 30pt;
   margin-top: 10%;
   background-color: #FFD700;
   text-align: center;
 }
 
-.counter { 
+.user {
+  line-height: 30pt;
+  border-bottom: solid 1px;
+  text-align: right;
+}
+
+#counter { 
   font-size: 30pt;
   font-family: sans-serif;
+  margin-top: 30px;
+  display: none;
+}
+
+#logout-btn {
+  display: none;
+}
+
+#login-btn,
+#logout-btn,
+#username {
+  font-size: 15pt;
+  font-family: sans-serif;
+  margin-left: 20px;
 }
 
