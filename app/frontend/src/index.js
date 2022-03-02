@@ -51,7 +51,7 @@ async function refresh() {
   if (countResult && countResult.count) {
     count = countResult.count;
   }
-  syncUI();
+  syncUI(idClaims.name, count);
 }
 
 document.getElementById('refresh-btn').addEventListener("click", refresh); 
