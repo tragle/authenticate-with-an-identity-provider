@@ -1,4 +1,5 @@
 import * as msal from '@azure/msal-browser';
+import syncUI from './ui';
 
 let idClaims;
 let accessToken;
@@ -37,41 +38,11 @@ function logout() {
   msalInstance.logoutRedirect();
 }
 
-function updateElement(id, text) {
-  const el = document.getElementById(id);
-  el.innerHTML = text; 
-}
-
-function hideElement(id) { 
-  const el = document.getElementById(id);
-  el.style.display = 'none';
-}
-
-function showElement(id) { 
-  const el = document.getElementById(id);
-  el.style.display = 'inline-block';
-}
-
 async function callApi(token) {
   const resp = await fetch(SERVER_URI, { method: 'POST', body: token });
   const json = await resp.json();
   console.log('got api response', json);
   return json;
-}
-
-function syncUI() {
-  if (!idClaims) {
-    hideElement('counter');
-    hideElement('logout-btn');
-    updateElement('username', '');
-    updateElement('count', '');
-  } else {
-    hideElement('login-btn');
-    updateElement('username', idClaims.name);
-    updateElement('count', count);
-    showElement('counter');
-    showElement('logout-btn');
-  }
 }
 
 async function refresh() {

@@ -1,6 +1,8 @@
 body { 
   background-color: #0057B8;
   width: 100%;
+  font-family: sans-serif;
+  font-size: 15pt;
 }
 
 .container {
@@ -11,19 +13,18 @@ body {
   margin-top: 10%;
   background-color: #FFD700;
   text-align: center;
+  border: solid 1px;
 }
 
-.user {
+.header {
   line-height: 30pt;
   border-bottom: solid 1px;
   text-align: right;
 }
 
-#counter { 
-  font-size: 30pt;
-  font-family: sans-serif;
-  margin-top: 30px;
-  display: none;
+#title {
+  float: left;
+  font-style: italic;
 }
 
 #logout-btn {
@@ -33,8 +34,15 @@ body {
 #login-btn,
 #logout-btn,
 #username {
-  font-size: 15pt;
-  font-family: sans-serif;
   margin-left: 20px;
 }
 
+#message,
+#counter { 
+  font-size: 25pt;
+  margin-top: 30px;
+}
+
+#counter { 
+  display: none;
+}
