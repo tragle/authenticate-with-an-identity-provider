@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.text());
 app.use(cors());
 
-let counter = 0;
+let count = 0;
 
 const isValid = token => (
   token.exp * 1000 > Date.now()         // token is not expired
@@ -20,12 +20,12 @@ const isValid = token => (
   && token.scp === "counter.readwrite"  // scope is correct
 );
 
-app.post('/counter', (req, res) => {
+app.post('/count', (req, res) => {
   const token = req.body;
   const decoded = jwt.decode(token);
   if (isValid(decoded)) {
-    counter++;
-    res.json({ counter });
+    count++;
+    res.json({ count });
   } else {
     res.status(403).send('Invalid access token');
   }
