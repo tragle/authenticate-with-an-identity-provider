@@ -1,0 +1,19 @@
+body { 
+  background-color: #0057B8;
+  width: 100%;
+}
+
+.container {
+  margin: auto;
+  width: 30%;
+  padding: 30pt;
+  margin-top: 10%;
+  background-color: #FFD700;
+  text-align: center;
+}
+
+.counter { 
+  font-size: 30pt;
+  font-family: sans-serif;
+}
+
