@@ -15,7 +15,7 @@ function showElement(id) {
 
 export default function syncUI(name, count) {
   console.log('syncing ui');
-  if (!idClaims) {
+  if (!name) {
     hideElement('counter');
     hideElement('logout-btn');
     updateElement('username', '');
