@@ -6,9 +6,9 @@ To use this repo, read the background information in the How this works section,
 
 ## How this works
 
-Oauth 2.0 is the industry standard protocol for authorization and single sign-on. If you want your application to allow users to "Connect with Google" (for example) in order to log in to your app or to access an api, then you need to understand how Oauth 2.0 (and the OpenID Connect extension) works. 
+[Oauth 2.0](https://oauth.net/2/) is the industry standard protocol for authorization and single sign-on. If you want your application to allow users to "Connect with Google" (for example) in order to log in to your app or to access an API, then you need to understand how Oauth 2.0 (and the OpenID Connect extension) works. 
 
-The good news is that once you understand the basic Oauth 2.0 and OIDC flow, you can use any identity provider to implement authorization and authentication for your application. All identity providers follow the same Oauth 2.0 specification, which means that if you can integrate with one integrate with one identity provider, you know everything you need to integrate with the others.
+The good news is that once you understand the basic Oauth 2.0 and OIDC flow, you can use any identity provider to implement authorization and authentication for your application. All identity providers follow the same Oauth 2.0 specification, which means that if you can integrate with one identity provider, you know everything you need to integrate with the others.
 
 ### What OAuth provides
 
@@ -26,7 +26,7 @@ OAuth 2.0 is a protocol for delegated authorization, and it provides a framework
 
 1. Strictly speaking, OAuth 2.0 was designed for *authorization*, not *authentication*.  That is, it is concerned with *what* someone can access, not who they are. 
 
-To handle authentication, the OAuth 2.0 group created an extension to the specification, called **Open ID Connect** or OIDC. OIDC is a small layer on top of OAuth 2.0, and provides a way to grant permission to user information.
+  To handle authentication, the OAuth 2.0 group created an extension to the specification, called **Open ID Connect** or OIDC. OIDC is a small layer on top of OAuth 2.0, and provides a way to grant permission to user information.
 
 2. OAuth is not concerned with how to structure permissions within an application. Most identity providers will include features like user roles and attributes, however, if you need fine-grained access control.
 
@@ -56,7 +56,7 @@ To handle authentication, the OAuth 2.0 group created an extension to the specif
 
 The OAuth specification defines several flows (or grants), depending on your use case.
 
-####Authorization Code Flow####
+#### Authorization Code Flow ####
 
 In this flow, the Client receives a short-lived Authorization Code, which it exchanges for an Access Token on a secure back-channel.
 
@@ -77,7 +77,7 @@ Secure because it is practically impossible for an attacker to intercept the Acc
 
 Complex because the Authorization Server requires the extra step of exchanging the Authorization Code for the Access Token, instead of providing the Access Token directly. This exchange happens server-to-server, meaning that it would not work for single-page applications.
 
-####Implicit Flow####
+#### Implicit Flow ####
 
 In the Implicit Flow, the Authorization Server sends the Access Token to the Client via the final frontend redirect. There is no Access Code -- the Client simply gets the Access Token directly. 
 
@@ -93,7 +93,7 @@ It allows single-page applications to take advantage of OAuth, however it is mor
 
 The OAuth 2.0 authors and all major identity providers now consider the Implicit Flow to be **deprecated**. Instead, use the **Authorization Code Flow with PKCE** flow.
 
-####Authorization Code Flow with PKCE####
+#### Authorization Code Flow with PKCE ####
 
 PKCE stands for "proof key for code exchange" and was created to allow untrusted, public clients to use the Authorization Code Flow.
 
@@ -107,7 +107,7 @@ This flow is similar to the Authorization Code Flow, with these differences:
 
 PKCE combines the ease of the Implicit Flow with the security of the Authorization Code Flow, and is now commonly used in browser and mobile-based applications.
 
-####Other Flows####
+#### Other Flows ####
 
 The OAuth 2.0 specification defines [several other grant types](https://oauth.net/2/grant-types/).
 
@@ -115,7 +115,7 @@ The OAuth 2.0 specification defines [several other grant types](https://oauth.ne
 - **Device Code** for input-constrained devices (for example, a gaming console).
 - **Refresh Token** which allows the Client to get a new Access Token without user input.
 
-###OpenID Connect###
+### OpenID Connect ###
 
 OpenID Connect adds authentication to OAuth 2.0. OIDC is not a grant type, but an extension to the OAuth 2.0 specification. 
 
