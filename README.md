@@ -56,7 +56,7 @@ OAuth 2.0 is a protocol for delegated authorization, and it provides a framework
 
 The OAuth specification defines several flows (or grants), depending on your use case.
 
-#### Authorization Code Flow ####
+#### Authorization Code Flow 
 
 In this flow, the Client receives a short-lived Authorization Code, which it exchanges for an Access Token on a secure back-channel.
 
@@ -77,7 +77,7 @@ Secure because it is practically impossible for an attacker to intercept the Acc
 
 Complex because the Authorization Server requires the extra step of exchanging the Authorization Code for the Access Token, instead of providing the Access Token directly. This exchange happens server-to-server, meaning that it would not work for single-page applications.
 
-#### Implicit Flow ####
+#### Implicit Flow 
 
 In the Implicit Flow, the Authorization Server sends the Access Token to the Client via the final frontend redirect. There is no Access Code -- the Client simply gets the Access Token directly. 
 
@@ -93,7 +93,7 @@ It allows single-page applications to take advantage of OAuth, however it is mor
 
 The OAuth 2.0 authors and all major identity providers now consider the Implicit Flow to be **deprecated**. Instead, use the **Authorization Code Flow with PKCE** flow.
 
-#### Authorization Code Flow with PKCE ####
+#### Authorization Code Flow with PKCE 
 
 PKCE stands for "proof key for code exchange" and was created to allow untrusted, public clients to use the Authorization Code Flow.
 
@@ -107,7 +107,7 @@ This flow is similar to the Authorization Code Flow, with these differences:
 
 PKCE combines the ease of the Implicit Flow with the security of the Authorization Code Flow, and is now commonly used in browser and mobile-based applications.
 
-#### Other Flows ####
+#### Other Flows 
 
 The OAuth 2.0 specification defines [several other grant types](https://oauth.net/2/grant-types/).
 
@@ -115,7 +115,7 @@ The OAuth 2.0 specification defines [several other grant types](https://oauth.ne
 - **Device Code** for input-constrained devices (for example, a gaming console).
 - **Refresh Token** which allows the Client to get a new Access Token without user input.
 
-### OpenID Connect ###
+### OpenID Connect 
 
 OpenID Connect adds authentication to OAuth 2.0. OIDC is not a grant type, but an extension to the OAuth 2.0 specification. 
 
@@ -127,6 +127,76 @@ OIDC is different from the existing flows in these ways:
 
 Once the Client has the ID token, it can consider the user authenticated. 
 
-## Using the app
+## Using the sample app 
 
+The sample app demonstrates integrating with an Identity Provider to grant users access. It uses the Authorization Code flow, and includes a backend Resource Server and frontend Client.  
 
+The app is called _Secret Counter_. The backend is built in Node and the frontend in vanilla Javascript.
+
+_Secret Counter_ uses Microsoft Azure AD B2C as its identity provider. Azure AD B2C has many features, is straightforward to set up, and is free if you have less than 50K monthly active users. Microsoft provides the [MSAL library](https://github.com/AzureAD/microsoft-authentication-library-for-js) which handles many OAuth tasks (like refreshing tokens, handling errors, etc.) automatically.
+
+### Setting up Azure AD B2C
+
+Because cloud interfaces change, this section will describe at a medium-high level the settings you need to configure in Azure, but it will not include click-by-click instructions on how to configure them. Refer to Azure's extensive documentation when in doubt.
+
+#### Create a tenant
+
+First, in the Azure portal, create an **Azure Active Directory B2C** resource. You'll be asked to name your organization and to provide an initial domain name.
+
+This tenant will hold your users, permissions, and the authorization settings for your applications.
+
+#### Register a SPA application
+
+1. Within the tenant you created create a new application called "SPA" or similar. 
+2. In the application Authentication settings, add a new Platform configuration for Single-page application. 
+3. In this configuration, add the redirect URI `http://localhost:8080`.
+4. Enable Access tokens and ID tokens.
+
+#### Create an API application
+
+1. Within the new tenant, create a new application called "API" or similar. 
+2. In the "Expose an API" settings for this application, set Application ID URI. You can accept the default or use a friendly string like `/api`.
+3. Add a scope for the API. The name of the scope should be in the format `{Application ID URI}/counter.readwrite`, for example `https://mytenant.onmicrosoft.com/api/counter.readwrite`. 
+4. Set the State of the scope to enabled, and "Who can consent" to Admins only.
+5. Back in the SPA registration settings, under API permissions, add a permission.
+6. Select the scope you created for the API. Type should be "delegated" and "Admin consent required" should be "Yes".
+
+#### Set up an external Identity provider
+
+1. [Follow these instructions to set up Google as an external Identity provider](https://docs.microsoft.com/en-us/azure/active-directory-b2c/identity-provider-google?pivots=b2c-user-flow).
+2. Under Local account, select "Email".
+
+#### Set up a User Flow 
+
+User flows configure the user-facing portion of the OAuth flow -- what to collect from users, how to present the login screen, etc.
+
+Navigate to User Flows and create a User Flow.
+
+1. Use type "Sign up and sign in"
+2. Give it a name like "B2C_1_signup_signin"
+3. Under Local Accounts, allow Email.
+4. Under Social identity providers, select Google.
+
+You can click "Run user flow" to test the flow out.
+
+### Setting up the frontend
+
+Copy the example.env file into a .env file and fill out the values as follows.
+
+- `CLIENT_ID` is found in the SPA application configuration in the B2C tenant.
+- `REDIRECT_URI` is `http://localhost:8080`
+- `SERVER_URI` is `http://localhost:3000/count`
+- `AUTHORITY` is in the format `{B2C_TENANT}/{DOMAIN}/{USER_FLOW_NAME}`, for example `https://mytenant.b2clogin.com/mytenant.onmicrosoft.com/B2C_1_signup_signin`
+- `KNOWN_AUTHORITY` is the B2C tenant, for example `mytenant.b2clogin.com`
+- `SCOPE` is the API scope you created, for example `https://mytenant.onmicrosoft.com/api/counter.readwrite`
+
+### Seting up the backend
+
+- `CLIENT_ID` is found in the API application configuration in the B2C tenant.
+- `PORT` should be `3000`.
+
+### Building and running the app 
+
+1. Under `/app/backend/`, run `npm install && npm start`.
+2. Under `/app/frontend/`, run `npm install && npm start`.
+3. Navigate to `localhost:8080` in your browser to use the app.
