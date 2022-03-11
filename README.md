@@ -16,6 +16,8 @@ OAuth provides a standard way to implement **delegated authorization**. In a del
 
 You have likely seen this workflow many times. If you have ever signed up for a new service by clicking a "Connect with Google" or "Connect with Facebook" button, for instance, you have experienced delegated authorization.
 
+![](OAuth-Consent.png?raw=true)
+
 The advantage of such a workflow is that users can centralize their online identity and use a single service (or a few) to log on to many applications. Developers of these applications likewise need not create a complex user account system, since they can delegate this task to the identity provider. They can instead focus on creating better user experiences by leveraging the services of the identity provider.
 
 In order for this to work, there needs to be a standard way to grant permission to a resource and subsequently access that resource. That's where OAuth 2.0 comes in. 
@@ -70,6 +72,8 @@ Here are the steps of the Authorization Code Flow:
 6. If everything is correct, the Authorization Server returns an Access Token to the Client backend. (The Access Token is normally a [JWT](https://auth0.com/docs/secure/tokens/json-web-tokens).)
 7. The Client backend then makes a call to the Resource Server, passing along the Access Token. 
 8. The Resource Server examines the claims in the token and sends back the requested resource.
+
+![](AuthorizationCodeFlow.png?raw=true)
 
 The Authorization Code flow is secure but complex. 
 
